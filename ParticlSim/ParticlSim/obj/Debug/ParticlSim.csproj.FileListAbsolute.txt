@@ -1,0 +1,11 @@
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\bin\Debug\ParticlSim.exe.config
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\bin\Debug\ParticlSim.exe
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\bin\Debug\ParticlSim.pdb
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\obj\Debug\ParticlSim.csproj.AssemblyReference.cache
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\obj\Debug\ParticlSim.csproj.SuggestedBindingRedirects.cache
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\obj\Debug\ParticlSim.Form1.resources
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\obj\Debug\ParticlSim.Properties.Resources.resources
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\obj\Debug\ParticlSim.csproj.GenerateResource.cache
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\obj\Debug\ParticlSim.csproj.CoreCompileInputs.cache
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\obj\Debug\ParticlSim.exe
+E:\3-For programming\GitHub\ParticleSim\ParticlSim\ParticlSim\obj\Debug\ParticlSim.pdb
