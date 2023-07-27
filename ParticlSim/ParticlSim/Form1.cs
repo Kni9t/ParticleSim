@@ -12,9 +12,9 @@ namespace ParticlSim
 {
     public partial class Form1 : Form
     {
-        const int RED_TYPE_BALLS_COUNT = 20;
-        const int GREEN_TYPE_BALLS_COUNT = 20;
-        const double FORSE = 4;
+        const int RED_TYPE_BALLS_COUNT = 3;
+        const int GREEN_TYPE_BALLS_COUNT = 2;
+        const double FORSE = 1.5;
 
         static Random R = new Random();
         List<Ball> RedBallsList, GreenBallsList;
@@ -54,32 +54,35 @@ namespace ParticlSim
         }
         public void UpdateLogic()
         {
-            for (int i = 0; i < RedBallsList.Count()-1; i++)
+            for (int i = 0; i < RedBallsList.Count(); i++)
             {
-                Rule(RedBallsList[i], RedBallsList[i+1], FORSE);
-                Rule(RedBallsList[i+1], RedBallsList[i], FORSE);
-            }
-
-            for (int i = 0; i < GreenBallsList.Count() - 1; i++)
-            {
-                Rule(GreenBallsList[i], GreenBallsList[i + 1], FORSE);
-                Rule(GreenBallsList[i + 1], GreenBallsList[i], FORSE);
+                for (int j = 0; j < RedBallsList.Count(); j++)
+                   Rule(RedBallsList[i], RedBallsList[j], FORSE);
             }
         }
 
         public void Rule(Ball A, Ball B, double g = 4)
         {
-            double fx = 0, fy = 0, F = 0,
-            dx = A.X - B.X, dy = A.Y - B.Y,
-            d = Math.Sqrt(dx * dx + dy * dy);
+            double fx = 0, fy = 0, F = 0, d = 0;
+
+            d = Math.Sqrt(Math.Pow(B.X - A.X, 2) + Math.Pow(B.Y - A.Y, 2));
             if (d > 0)
             {
                 F = g * (1 / d);
-                fx += (F * dx);
-                fy += (F * dy);
+                fx += (F * (B.X - A.X));
+                fy += (F * (B.Y - A.Y));
             }
-            B.X += (int)fx;
-            B.Y += (int)fy;
+            A.vx = A.vx + (int)fx;
+            A.vy = A.vy + (int)fy;
+
+            //B.vx = B.vx + (int)fx;
+            //B.vy = B.vy + (int)fy;
+
+            A.X += A.vx;
+            A.Y += A.vy;
+
+            //B.X -= B.vx;
+            //B.Y -= B.vy;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
