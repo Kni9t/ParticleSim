@@ -10,23 +10,19 @@ namespace ParticlSim
     public class Ball
     {
         Brush Color;
-        public int X, Y;
+        public int X, Y, Size;
 
-        int PointX, PointY, Size;
-
-        public Ball(Brush Color, int Size, int PointX = 50, int PointY = 50)
+        public Ball(Brush Color, int Size, int X = 50, int Y = 50)
         {
             this.Color = Color;
             this.Size = Size;
-            this.PointX = PointX;
-            this.PointY = PointY;
-            X = PointX + Size / 2;
-            Y = PointY + Size / 2;
+            this.X = X;
+            this.Y = Y;
         }
 
         public void Print(Graphics G)
         {
-            G.FillEllipse(Color, PointX, PointY, Size, Size);
+            G.FillEllipse(Color, X - Size/2, Y - Size / 2, Size, Size);
         }
     }
 }
