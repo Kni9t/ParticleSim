@@ -12,9 +12,10 @@ namespace ParticlSim
 {
     public partial class Form1 : Form
     {
-        const int RED_TYPE_BALLS_COUNT = 3;
-        const int GREEN_TYPE_BALLS_COUNT = 2;
-        const double FORSE = 1.5;
+        const int RED_TYPE_BALLS_COUNT = 4;
+        const int GREEN_TYPE_BALLS_COUNT = 10;
+        const double FORSE = 1.1;
+        const double HighFORCE = 6;
 
         static Random R = new Random();
         List<Ball> RedBallsList, GreenBallsList;
@@ -59,6 +60,7 @@ namespace ParticlSim
                 for (int j = 0; j < RedBallsList.Count(); j++)
                    Rule(RedBallsList[i], RedBallsList[j], FORSE);
             }
+
         }
 
         public void Rule(Ball A, Ball B, double g = 4)
@@ -66,7 +68,7 @@ namespace ParticlSim
             double fx = 0, fy = 0, F = 0, d = 0;
 
             d = Math.Sqrt(Math.Pow(B.X - A.X, 2) + Math.Pow(B.Y - A.Y, 2));
-            if (d > 0)
+            if (d > 0) // Можно ограничить расстояние взаимодействия
             {
                 F = g * (1 / d);
                 fx += (F * (B.X - A.X));
@@ -75,14 +77,17 @@ namespace ParticlSim
             A.vx = A.vx + (int)fx;
             A.vy = A.vy + (int)fy;
 
-            //B.vx = B.vx + (int)fx;
-            //B.vy = B.vy + (int)fy;
+            /*if (A.vx >= HighFORCE) A.vx = (int)HighFORCE;
+            else if (A.vx <= -HighFORCE) A.vx = -(int)HighFORCE;
 
-            A.X += A.vx;
-            A.Y += A.vy;
+            if (A.vy >= HighFORCE) A.vy = (int)HighFORCE;
+            else if (A.vy <= -HighFORCE) A.vy = -(int)HighFORCE;*/
 
-            //B.X -= B.vx;
-            //B.Y -= B.vy;
+            A.X += A.vx/2;
+            A.Y += A.vy/2;
+
+            if (A.X <= 0 || A.X >= pictureBox1.Width) A.vx *= -1;
+            if (A.Y <= 0 || A.Y >= pictureBox1.Height) A.vy *= -1;
         }
 
         private void timer1_Tick(object sender, EventArgs e)
@@ -93,7 +98,10 @@ namespace ParticlSim
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == ' ')
+            {
                 StartGen();
+                GC.Collect();
+            }
         }
     }
 }
