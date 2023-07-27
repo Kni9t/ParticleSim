@@ -12,10 +12,12 @@ namespace ParticlSim
 {
     public partial class Form1 : Form
     {
-        const int FIRST_TYPE_BALLS_COUNT = 2;
+        const int RED_TYPE_BALLS_COUNT = 20;
+        const int GREEN_TYPE_BALLS_COUNT = 20;
+        const double FORSE = 4;
 
         static Random R = new Random();
-        List<Ball> RedBallsList;
+        List<Ball> RedBallsList, GreenBallsList;
         Ball B1, B2;
 
         public Form1()
@@ -28,9 +30,15 @@ namespace ParticlSim
         public void StartGen()
         {
             RedBallsList = new List<Ball>();
-            for (int i = 0; i < FIRST_TYPE_BALLS_COUNT; i++)
+            for (int i = 0; i < RED_TYPE_BALLS_COUNT; i++)
             {
                 RedBallsList.Add(new Ball(Brushes.Red, 10, R.Next(pictureBox1.Width), R.Next(pictureBox1.Height)));
+            }
+
+            GreenBallsList = new List<Ball>();
+            for (int i = 0; i < GREEN_TYPE_BALLS_COUNT; i++)
+            {
+                GreenBallsList.Add(new Ball(Brushes.Green, 10, R.Next(pictureBox1.Width), R.Next(pictureBox1.Height)));
             }
         }
 
@@ -40,18 +48,26 @@ namespace ParticlSim
             Graphics G = Graphics.FromImage(BitMap);
 
             foreach (Ball b in RedBallsList) b.Print(G);
+            foreach (Ball b in GreenBallsList) b.Print(G);
 
             pictureBox1.Image = BitMap;
         }
         public void UpdateLogic()
         {
-            for (int i = 0; i < RedBallsList.Count(); i++)
+            for (int i = 0; i < RedBallsList.Count()-1; i++)
             {
-                Rule(RedBallsList[0], RedBallsList[1]);
+                Rule(RedBallsList[i], RedBallsList[i+1], FORSE);
+                Rule(RedBallsList[i+1], RedBallsList[i], FORSE);
+            }
+
+            for (int i = 0; i < GreenBallsList.Count() - 1; i++)
+            {
+                Rule(GreenBallsList[i], GreenBallsList[i + 1], FORSE);
+                Rule(GreenBallsList[i + 1], GreenBallsList[i], FORSE);
             }
         }
 
-        public void Rule(Ball A, Ball B, double g = 6)
+        public void Rule(Ball A, Ball B, double g = 4)
         {
             double fx = 0, fy = 0, F = 0,
             dx = A.X - B.X, dy = A.Y - B.Y,
