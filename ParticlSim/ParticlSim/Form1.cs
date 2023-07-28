@@ -12,10 +12,10 @@ namespace ParticlSim
 {
     public partial class Form1 : Form
     {
-        const int RED_TYPE_BALLS_COUNT = 4;
+        const int RED_TYPE_BALLS_COUNT = 3;
         const int GREEN_TYPE_BALLS_COUNT = 10;
-        const double FORSE = 1.1;
-        const double HighFORCE = 6;
+        const float FORSE = 1;
+        const float HighFORCE = 6;
 
         static Random R = new Random();
         List<Ball> RedBallsList, GreenBallsList;
@@ -63,31 +63,28 @@ namespace ParticlSim
 
         }
 
-        public void Rule(Ball A, Ball B, double g = 4)
+        public void Rule(Ball A, Ball B, float g = 4)
         {
-            double fx = 0, fy = 0, F = 0, d = 0;
+            float fx = 0, fy = 0, F = 0, d = 0, dx = 0, dy =0;
 
-            d = Math.Sqrt(Math.Pow(B.X - A.X, 2) + Math.Pow(B.Y - A.Y, 2));
+            dx = B.X - A.X;
+            dy = B.Y - A.Y;
+
+            d = (float)Math.Sqrt(Math.Pow(dx, 2) + Math.Pow(dy, 2));
             if (d > 0) // Можно ограничить расстояние взаимодействия
             {
-                F = g * (1 / d);
-                fx += (F * (B.X - A.X));
-                fy += (F * (B.Y - A.Y));
+                F = g * (1 / (float)Math.Pow(d, 2));
+                fx += F * dx;
+                fy += F * dy;
             }
-            A.vx = A.vx + (int)fx;
-            A.vy = A.vy + (int)fy;
-
-            /*if (A.vx >= HighFORCE) A.vx = (int)HighFORCE;
-            else if (A.vx <= -HighFORCE) A.vx = -(int)HighFORCE;
-
-            if (A.vy >= HighFORCE) A.vy = (int)HighFORCE;
-            else if (A.vy <= -HighFORCE) A.vy = -(int)HighFORCE;*/
+            A.vx = A.vx + fx;
+            A.vy = A.vy + fy;
 
             A.X += A.vx/2;
             A.Y += A.vy/2;
 
-            if (A.X <= 0 || A.X >= pictureBox1.Width) A.vx *= -1;
-            if (A.Y <= 0 || A.Y >= pictureBox1.Height) A.vy *= -1;
+            if (A.X < 20 || A.X > pictureBox1.Width - 20) A.vx *= -1;
+            if (A.Y < 20 || A.Y > pictureBox1.Height - 20) A.vy *= -1;
         }
 
         private void timer1_Tick(object sender, EventArgs e)

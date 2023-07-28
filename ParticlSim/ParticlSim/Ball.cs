@@ -10,7 +10,7 @@ namespace ParticlSim
     public class Ball
     {
         Brush Color;
-        public int X, Y, Size, vx, vy;
+        public float X, Y, Size, vx, vy;
 
         public Ball(Brush Color, int Size, int X = 50, int Y = 50)
         {
