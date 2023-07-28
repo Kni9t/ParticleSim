@@ -12,8 +12,8 @@ namespace ParticlSim
 {
     public partial class Form1 : Form
     {
-        const int RED_TYPE_BALLS_COUNT = 3;
-        const int GREEN_TYPE_BALLS_COUNT = 10;
+        const int RED_TYPE_BALLS_COUNT = 30;
+        const int GREEN_TYPE_BALLS_COUNT = 30;
         const float FORSE = 1;
         const float HighFORCE = 6;
 
@@ -80,8 +80,13 @@ namespace ParticlSim
             A.vx = A.vx + fx;
             A.vy = A.vy + fy;
 
-            A.X += A.vx/2;
-            A.Y += A.vy/2;
+            if (A.vx < float.MinValue) A.vx = float.MinValue;
+            if (A.vx > float.MaxValue) A.vx = float.MaxValue;
+            if (A.vy < float.MinValue) A.vy = float.MinValue;
+            if (A.vy > float.MaxValue) A.vy = float.MaxValue;
+
+            A.X += A.vx * 0.5f;
+            A.Y += A.vy * 0.5f;
 
             if (A.X < 20 || A.X > pictureBox1.Width - 20) A.vx *= -1;
             if (A.Y < 20 || A.Y > pictureBox1.Height - 20) A.vy *= -1;
